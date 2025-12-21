@@ -1,0 +1,453 @@
+/* 重置默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 整体页面样式 */
+body {
+    font-family: 'Arial', sans-serif;
+    overflow: hidden; /* 防止页面出现滚动条 */
+    position: relative; /* 为绝对定位的子元素提供基准 */
+    width: 100vw;
+    height: 100vh;
+    cursor: none; /* 隐藏默认光标 */
+}
+
+/* 背景容器 */
+#background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+/* 背景图片 */
+#background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* 飘雪容器 */
+#snow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* 不拦截鼠标事件 */
+    z-index: -1; /* 在背景之上，其他内容之下 */
+}
+
+/* 单个雪花 */
+.snowflake {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    opacity: 0.8;
+    pointer-events: none;
+    /* 定义飘落动画 */
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* 粒子横幅 */
+#particle-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 10; /* 确保在前景层 */
+    background-color: rgba(0, 0, 0, 0.2); /* 调浅背景 */
+    pointer-events: none; /* 让鼠标事件穿透，但JS会手动处理交互 */
+}
+
+/* 圣诞树 Canvas */
+#tree-canvas {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    pointer-events: none; /* 让鼠标事件穿透到下方的贺卡 */
+}
+
+/* 树干 */
+.tree-trunk {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 70px;
+    background: linear-gradient(to right, #8B4513, #A0522D);
+    border-radius: 5px 5px 0 0;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    animation: trunk-sway 5s ease-in-out infinite;
+}
+
+@keyframes trunk-sway {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    50% { transform: translateX(-50%) rotate(1deg); }
+}
+
+/* 树层 */
+.tree-layer {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to right, #0a5f20, #0b8c2d, #0a5f20);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transform-origin: bottom center;
+    transition: transform 0.5s ease-in-out;
+}
+
+.tree-layer:nth-child(1) {
+    bottom: 70px;
+    width: 70%;
+    z-index: 2;
+}
+.tree-layer:nth-child(2) {
+    bottom: 140px;
+    width: 80%;
+    z-index: 3;
+}
+.tree-layer:nth-child(3) {
+    bottom: 210px;
+    width: 90%;
+    z-index: 4;
+}
+.tree-layer:nth-child(4) {
+    bottom: 280px;
+    width: 100%;
+    z-index: 5;
+}
+
+/* 树顶星 */
+.tree-star {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 45px;
+    background-color: gold;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    z-index: 10;
+    animation: star-twinkle 1.5s infinite alternate, star-spin 15s linear infinite;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+}
+
+@keyframes star-twinkle {
+    from { opacity: 0.8; transform: translateX(-50%) scale(1); }
+    to { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+
+@keyframes star-spin {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* 装饰球 */
+.tree-decoration {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #e74c3c;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    animation: decoration-twinkle 3s infinite;
+    z-index: 6;
+}
+
+@keyframes decoration-twinkle {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* 闪烁灯光 */
+.tree-light {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffcc00;
+    box-shadow: 0 0 15px #ffcc00;
+    animation: light 2s infinite alternate;
+    z-index: 7;
+}
+
+@keyframes light {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+}
+
+/* 圣诞贺卡 */
+#christmas-card {
+    position: absolute;
+    bottom: 20px; /* 进一步下调位置，避免遮挡树干 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 195px;
+    height: 120px;
+    perspective: 1000px;
+    cursor: pointer;
+    z-index: 6;
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+#christmas-card:hover {
+    transform: translateX(-50%) scale(1.05);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px; /* 缩小字体 */
+    font-weight: bold;
+    color: #8B4513;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    transition: transform 0.6s;
+    padding: 15px; /* 减小内边距 */
+    text-align: center;
+    border: 2px solid #8B4513;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.card-front {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.card-front::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    background: gold;
+    border-radius: 50%;
+    box-shadow: 0 0 10px gold;
+}
+
+.card-back {
+    background: linear-gradient(135deg, #f8f1e5 0%, #e8e0d5 100%);
+    color: #5d4037;
+    transform: rotateY(180deg);
+    overflow-y: auto;
+    border: 2px solid #8B4513;
+    position: relative;
+}
+
+#christmas-card.flipped .card-front {
+    transform: rotateY(180deg);
+}
+
+#christmas-card.flipped .card-back {
+    transform: rotateY(0deg);
+}
+
+/* 贺卡内容模态框 */
+.card-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.card-modal.active {
+    display: flex;
+}
+
+.card-content {
+    background: linear-gradient(135deg, #f8f1e5 0%, #e8e0d5 100%);
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 450px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.4s, opacity 0.4s;
+    text-align: center;
+    border: 2px solid #8B4513;
+    position: relative;
+}
+
+.card-content::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    background: gold;
+    border-radius: 50%;
+    box-shadow: 0 0 10px gold;
+}
+
+.card-content.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.card-message h2 {
+    color: #8B4513;
+    margin-bottom: 15px;
+    font-size: 28px;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+}
+
+.card-message p {
+    margin: 12px 0;
+    line-height: 1.6;
+    color: #5d4037;
+    font-size: 18px;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+}
+
+.close-card {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.close-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    transform: rotate(45deg);
+    transition: all 0.6s;
+}
+
+.close-card:hover {
+    background-color: #c0392b;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.close-card:hover::before {
+    top: -100%;
+    left: -100%;
+}
+
+/* 美化滚动条 */
+.card-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+    background-color: rgba(139, 69, 19, 0.5);
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+.card-content::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(139, 69, 19, 0.8);
+}
+
+/* 自定义光标 */
+.santa-cursor {
+    position: fixed;
+    width: 40px; /* 适当缩小光标 */
+    height: 40px;
+    background-image: url('../images/christmas-cursor.png'); /* 修正相对路径 */
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.05s linear; /* 优化跟随流畅度 */
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+}
+
+.santa-cursor:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* 星星粒子 */
+.cursor-star {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: yellow;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    pointer-events: none;
+    z-index: 9998;
+    animation: fadeOutAndMove 1s forwards;
+    box-shadow: 0 0 5px gold;
+    filter: drop-shadow(0 0 2px gold);
+}
+
+@keyframes fadeOutAndMove {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--end-x), var(--end-y));
+    }
+}

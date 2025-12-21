@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas! My Love!</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<!-- 背景容器 -->
+<div id="background-container">
+    <img id="background-image" src="assets/images/christmas-background.jpg" alt="欧洲圣诞小镇背景" />
+</div>
+
+<!-- 飘雪效果容器 -->
+<div id="snow-container"></div>
+
+<!-- 粒子文字横幅 (Canvas) -->
+<canvas id="particle-banner" width="100%" height="80"></canvas>
+
+<!-- 圣诞树容器 (Canvas) -->
+<canvas id="tree-canvas"></canvas>
+
+<!-- 圣诞贺卡 -->
+<div id="christmas-card">
+    <div class="card-front">致 猫 的 圣 诞 贺 卡</div>
+</div>
+
+<!-- 贺卡内容模态框 -->
+<div id="card-overlay" class="card-modal">
+    <div id="card-content" class="card-content">
+        <div class="card-message">
+            <h2>致我最爱的猫</h2>
+            <p>在这个特别的圣诞夜，我想对你说...</p>
+            <p>愿你的笑容像这闪烁的星光一样璀璨</p>
+            <p>愿你的幸福像这温暖的灯火一样绵长</p>
+            <p>虽然我们相隔万里...</p>
+            <p>但我的心始终与你同在!</p>
+            <p>感谢你 让我的世界变得如此美好~</p>
+            <p>仿佛黑白水墨画被你绘成五彩缤纷的油画~</p>
+            <p>圣诞快乐！我最爱的猫！</p>
+            <p>Merry Christmas！My Love!</p>
+            <p>愿这世间所有的美好都围绕着你！</p>
+            <p>永远爱你的</p>
+            <p>李 泽 新</p>
+        </div>
+        <button class="close-card">关闭</button>
+    </div>
+</div>
+
+<!-- 自定义光标元素 -->
+<div id="santa-cursor" class="santa-cursor" style="display: none;"></div>
+
+<!-- 背景音乐元素 -->
+<audio id="bg-music" loop preload="auto">
+    <source src="assets/audio/christmas-is-coming.mp3" type="audio/mpeg">
+</audio>
+
+<!-- JavaScript 引入 -->
+<script src="assets/js/snow.js"></script>
+<script src="assets/js/particles.js"></script>
+<script src="assets/js/tree-animation.js"></script>
+<script src="assets/js/cursor-effects.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
