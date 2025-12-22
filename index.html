@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Merry Christmas! My Love!</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="assets/images/christmas-Tree-icon.png">
 </head>
 <body>
+<!-- SVG Heart ClipPath 定义 -->
+<svg width="0" height="0" style="position:absolute">
+    <defs>
+        <clipPath id="heart-clip" clipPathUnits="objectBoundingBox">
+            <path d="M0.5 0.2 C 0.35 0 0 0.05 0 0.35 C 0 0.7 0.3 0.9 0.5 1 C 0.7 0.9 1 0.7 1 0.35 C 1 0.05 0.65 0 0.5 0.2 Z"/>
+        </clipPath>
+    </defs>
+</svg>
 <!-- 背景容器 -->
 <div id="background-container">
     <img id="background-image" src="assets/images/christmas-background.jpg" alt="欧洲圣诞小镇背景" />
@@ -20,6 +29,9 @@
 
 <!-- 圣诞树容器 (Canvas) -->
 <canvas id="tree-canvas"></canvas>
+
+<!-- 心形头像容器 -->
+<div id="heart-avatars"></div>
 
 <!-- 圣诞贺卡 -->
 <div id="christmas-card">

@@ -6,6 +6,7 @@ class SpiralTree {
     constructor() {
         this.canvas = document.getElementById('tree-canvas');
         this.ctx = this.canvas.getContext('2d');
+        this.heartEl = document.getElementById('love-heart');
         this.particles = [];
         this.width = 0;
         this.height = 0;
@@ -56,6 +57,7 @@ class SpiralTree {
         
         // 将树底定位在页面底部附近
         this.treeBaseY = this.height - bottomSafeMargin; 
+        this.positionHeart();
     }
 
     createParticle() {
@@ -128,6 +130,7 @@ class SpiralTree {
 
     animate() {
         this.ctx.clearRect(0, 0, this.width, this.height);
+        this.positionHeart();
         
         // Add new particles
         for(let i=0; i<5; i++) this.createParticle();
@@ -182,5 +185,15 @@ class SpiralTree {
         this.drawStar();
 
         requestAnimationFrame(() => this.animate());
+    }
+    
+    positionHeart() {
+        if (!this.heartEl) return;
+        const topY = this.treeBaseY - this.treeHeight;
+        const cx = this.width / 2;
+        let hy = topY - 90;
+        if (hy < 140) hy = 140;
+        this.heartEl.style.left = cx + 'px';
+        this.heartEl.style.top = hy + 'px';
     }
 }

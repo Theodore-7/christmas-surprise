@@ -91,6 +91,47 @@ body {
     pointer-events: none; /* 让鼠标事件穿透到下方的贺卡 */
 }
 
+#heart-avatars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    pointer-events: none;
+}
+
+.heart-avatar {
+    position: absolute;
+    width: 88px;   /* 更小尺寸 */
+    height: 78px;  /* 更小尺寸 */
+    clip-path: url(#heart-clip); /* 使用SVG贝塞尔曲线心形，圆润饱满 */
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: heartFade 6s ease-in-out infinite, heartDrift 12s ease-in-out infinite;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+}
+
+.heart-avatar.my {
+    background-image: url('../images/my-avatar.jpg');
+}
+.heart-avatar.cat {
+    background-image: url('../images/cat-avatar.jpg');
+}
+
+@keyframes heartFade {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes heartDrift {
+    0%   { transform: translateY(0) scale(1); }
+    50%  { transform: translateY(-12px) scale(1.02); } /* 更细腻的漂浮幅度 */
+    100% { transform: translateY(0) scale(1); }
+}
 /* 树干 */
 .tree-trunk {
     position: absolute;
